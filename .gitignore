@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Keep the artifacts directory and its manifest under version control,
+# but you may want to .gitignore the bulky payload subfolders instead if
+# your generated data gets large or contains sensitive samples:
+# artifacts/*/
+# !artifacts/manifest.jsonl
+# !artifacts/README.md

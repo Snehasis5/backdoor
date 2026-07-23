@@ -1,0 +1,45 @@
+# Default experiment configuration for the backdoor-inheritance pipeline.
+# Mirrors the setup described in the project brief and slide deck.
+
+models:
+  - name: qwen3.5-9b
+  - name: mistral-7b
+  - name: deepseek-v3
+
+monitors:
+  - name: llama-3-70b
+  - name: gpt-oss-20b
+  - name: gpt-oss-120b
+
+protocols:
+  - blind
+  - prompted
+
+trigger:
+  secure_year: 2023
+  insecure_year: 2024
+  # ICL-induced organisms include both trigger years; fine-tuned organisms
+  # omit the trigger year from the training data itself (see triggers.py).
+  include_both_years_for_icl: true
+  include_both_years_for_finetune: false
+
+transfer:
+  modes:
+    - in_context
+    - finetune
+  num_generations: 12
+  # Generations at which attack-success-rate / benchmark snapshots are taken,
+  # matching the x-axis in the Results chart.
+  eval_checkpoints: [1, 4, 8, 12]
+
+finetune:
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  learning_rate: 0.0001
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  max_seq_length: 1024
+
+artifacts:
+  root: artifacts
